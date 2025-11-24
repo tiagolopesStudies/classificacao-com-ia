@@ -1,0 +1,7 @@
+node_modules/
+data/*
+!data/.gitkeep
+embeddings/*
+!embeddings/.gitkeep
+embeddings.json
+tsne_output.csv
