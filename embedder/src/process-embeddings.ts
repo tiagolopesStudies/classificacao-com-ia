@@ -1,8 +1,8 @@
 import fs from 'node:fs'
 
-interface EmbeddingData {
+export interface EmbeddingData {
   path: string
-  embedding: unknown
+  embedding: number[]
   number: number
   split: 'test' | 'train'
   class: 'cat' | 'dog'
