@@ -5,3 +5,4 @@ embeddings/*
 !embeddings/.gitkeep
 embeddings.json
 tsne_output.csv
+.env

@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import { cos_sim } from '@huggingface/transformers'
-import type { EmbeddingData } from './process-embeddings.js'
+import type { EmbeddingData } from './process-embeddings.ts'
 
 interface DistanceData {
   distance: number

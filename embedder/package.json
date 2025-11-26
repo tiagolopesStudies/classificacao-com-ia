@@ -18,8 +18,10 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@google/genai": "^1.30.0",
     "@huggingface/transformers": "^3.8.0",
     "csv-writer": "^1.6.0",
+    "dotenv": "^17.2.3",
     "tsne-js": "^1.0.3"
   }
 }
