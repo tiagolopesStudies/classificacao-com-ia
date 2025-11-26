@@ -39,7 +39,7 @@ for (let i = 0; i < tsneInput.length; i++) {
 }
 
 const csvWriter = createObjectCsvWriter({
-  path: 'tsne_output.csv',
+  path: '../../tsne_output.csv',
   header: [
     { id: 'class', title: 'color' },
     { id: 'x', title: 'x' },

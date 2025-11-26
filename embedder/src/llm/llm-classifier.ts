@@ -1,9 +1,5 @@
 import fs from 'node:fs'
 import { GoogleGenAI, Type } from '@google/genai'
-import { config } from 'dotenv'
-import type { EmbeddingData } from './process-embeddings.ts'
-
-config({ path: '../.env', quiet: true })
 
 type DogOrCat = 'dog' | 'cat'
 
@@ -11,27 +7,13 @@ type OutputData = {
   category: DogOrCat
 }[]
 
-interface TestInstanceSchema {
+export interface TestInstanceSchema {
   path: string
   trueClass: DogOrCat
   predictedClass?: DogOrCat
 }
 
 const genai = new GoogleGenAI({ apiKey: process.env.GEN_AI_API_KEY })
-
-const embeddings = JSON.parse(
-  fs.readFileSync('../embeddings.json').toString()
-) as EmbeddingData[]
-
-const testInstances = embeddings
-  .filter((e) => e.split === 'test')
-  .map(
-    (e) =>
-      ({
-        path: `../data/${e.path.slice(2)}`,
-        trueClass: e.class
-      }) as TestInstanceSchema
-  )
 
 function readImage(path: string) {
   return fs.readFileSync(path, { encoding: 'base64' })
@@ -80,7 +62,7 @@ async function geminiGenerateContent(contents: any[]) {
   return response
 }
 
-async function llmClassifier(path: string) {
+export async function llmClassifier(path: string) {
   const imgToBase64 = readImage(path)
   const inlineData = transformToInlineData(imgToBase64)
   const contents = [inlineData, { text: prompt }]
@@ -90,13 +72,3 @@ async function llmClassifier(path: string) {
 
   return result[0].category
 }
-
-const requests = testInstances
-  .slice(0, 10)
-  .map((item) => llmClassifier(item.path))
-
-Promise.all(requests).then((results) => {
-  results.forEach((result, i) => {
-    testInstances[i].predictedClass = result
-  })
-})

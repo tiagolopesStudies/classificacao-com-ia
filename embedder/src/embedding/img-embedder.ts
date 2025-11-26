@@ -9,7 +9,7 @@ async function init() {
     { dtype: 'fp32' }
   )
 
-  async function embedImage(images: string[]) {
+  async function embedImage(images: string | string[]) {
     const result = await imgEmbedder(images, {
       pooling: 'cls',
       normalize: true
@@ -17,7 +17,7 @@ async function init() {
     return result.tolist()
   }
 
-  const images = fs.readdirSync('../data').map((f) => `../data/${f}`)
+  const images = fs.readdirSync('../../data').map((f) => `../../data/${f}`)
 
   let startIdx = 0
   let endIdx = 0
@@ -36,7 +36,7 @@ async function init() {
     }
 
     fs.writeFileSync(
-      `../embeddings/embedding_${startIdx}.json`,
+      `../../embeddings/embedding_${startIdx}.json`,
       JSON.stringify(output)
     )
 

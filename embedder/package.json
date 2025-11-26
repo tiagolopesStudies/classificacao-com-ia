@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsx watch --env-file=.env src/server.ts"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
   "packageManager": "pnpm@10.23.0",
   "devDependencies": {
     "@biomejs/biome": "2.3.7",
+    "@types/express": "^5.0.5",
     "@types/node": "^24.10.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
@@ -22,6 +23,7 @@
     "@huggingface/transformers": "^3.8.0",
     "csv-writer": "^1.6.0",
     "dotenv": "^17.2.3",
+    "express": "^5.1.0",
     "tsne-js": "^1.0.3"
   }
 }

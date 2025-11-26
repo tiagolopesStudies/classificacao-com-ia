@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import { cos_sim } from '@huggingface/transformers'
-import type { EmbeddingData } from './process-embeddings.ts'
+import type { EmbeddingData } from '@/embedding/process-embeddings.ts'
 
 interface DistanceData {
   distance: number
@@ -17,7 +17,6 @@ const embeddings = JSON.parse(
 ) as EmbeddingData[]
 
 const trainEmbeddings = embeddings.filter((e) => e.split === 'train')
-const testEmbeddings = embeddings.filter((e) => e.split === 'test')
 
 function compare(testEmbedding: EmbeddingData) {
   const distances: DistanceData[] = []
@@ -27,7 +26,7 @@ function compare(testEmbedding: EmbeddingData) {
 
     distances.push({
       distance,
-      class: trainEmbedding.class
+      class: trainEmbedding.class ?? ''
     })
   }
 
@@ -76,7 +75,16 @@ function classify(testEmbedding: EmbeddingData, k: number) {
   return getMaxClass(classCount)
 }
 
-function calculateAccuracy(results: PredictedData[]) {
+export function knnClassify(path: string, k: number) {
+  const testEmbedding: EmbeddingData = {
+    path,
+    embedding: []
+  }
+
+  return classify(testEmbedding, k)
+}
+
+export function calculateAccuracy(results: PredictedData[]) {
   let nCorrect = 0
 
   for (const result of results) {
@@ -87,16 +95,3 @@ function calculateAccuracy(results: PredictedData[]) {
 
   return nCorrect / results.length
 }
-
-const predictedClasses: PredictedData[] = []
-
-for (const testEmbedding of testEmbeddings) {
-  const predictedClass = classify(testEmbedding, 5)
-
-  predictedClasses.push({
-    predictedClass: predictedClass,
-    trueClass: testEmbedding.class
-  })
-}
-
-console.log(calculateAccuracy(predictedClasses))
