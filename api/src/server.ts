@@ -1,3 +1,4 @@
+import cors from 'cors'
 import express from 'express'
 import z from 'zod'
 import { knnClassify } from './knn/knn-classifier'
@@ -6,6 +7,7 @@ import { llmClassify } from './llm/llm-classifier'
 const app = express()
 
 app.use(express.json())
+app.use(cors({ origin: 'http://localhost:5173' }))
 
 app.get('/', (_, res) => {
   res.json({
