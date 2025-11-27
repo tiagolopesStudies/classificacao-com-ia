@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "dev": "tsx watch --env-file=.env src/server.ts"
   },
@@ -24,6 +23,7 @@
     "csv-writer": "^1.6.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
-    "tsne-js": "^1.0.3"
+    "tsne-js": "^1.0.3",
+    "zod": "^4.1.13"
   }
 }

@@ -1,5 +1,12 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.3.7/schema.json",
+  "linter": {
+    "rules": {
+      "complexity": {
+        "noStaticOnlyClass": "off"
+      }
+    }
+  },
   "javascript": {
     "formatter": {
       "enabled": true,
